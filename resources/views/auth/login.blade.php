@@ -7,7 +7,7 @@
             or
             <a
                 href="{{ route('register') }}"
-                class="text-sm text-purple-700 hover:text-purple-600"
+                class="text-sm text-blue-700 hover:text-blue-600"
             >
                 create new account
             </a>
@@ -25,15 +25,9 @@
         </div>
         <div class="flex justify-between items-center mb-5">
             <div class="flex items-center">
-                <input
-                    id="loginRememberMe"
-                    type="checkbox"
-                    class="mr-3 rounded border-gray-300 text-purple-500 focus:ring-purple-500"
-                />
-                <label for="loginRememberMe">Remember Me</label>
             </div>
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-sm text-purple-700 hover:text-purple-600">
+                <a href="{{ route('password.request') }}" class="text-sm text-blue-700 hover:text-blue-600">
                     Forgot Password?
                 </a>
             @endif

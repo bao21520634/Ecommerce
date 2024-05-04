@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -125,7 +126,6 @@ class CheckoutController extends Controller
         }
 
         DB::commit();
-        CartItem::where(['user_id' => $user->id])->delete();
 
         return redirect($session->url);
     }
@@ -137,6 +137,7 @@ class CheckoutController extends Controller
         \Stripe\Stripe::setApiKey(getenv('STRIPE_SECRET_KEY'));
 
         try {
+            CartItem::where(['user_id' => $user->id])->delete();
             $session_id = $request->get('session_id');
             $session = \Stripe\Checkout\Session::retrieve($session_id);
             if (!$session) {
@@ -155,7 +156,7 @@ class CheckoutController extends Controller
             }
             $customer = \Stripe\Customer::retrieve($session->customer);
 
-            return view('checkout.success', compact('customer'));
+            return redirect()->intended(RouteServiceProvider::HOME);
         } catch (NotFoundHttpException $e) {
             throw $e;
         } catch (\Exception $e) {
@@ -165,7 +166,7 @@ class CheckoutController extends Controller
 
     public function failure(Request $request)
     {
-        return view('checkout.failure', ['message' => ""]);
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     public function checkoutOrder(Order $order, Request $request)

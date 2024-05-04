@@ -86,9 +86,6 @@ document.addEventListener("alpine:init", async () => {
         post(this.product.updateQuantityUrl, {quantity: product.quantity})
           .then(result => {
             this.$dispatch('cart-change', {count: result.count})
-            this.$dispatch("notify", {
-              message: "The item quantity was updated",
-            });
           })
           .catch(response => {
             this.$dispatch('notify', {

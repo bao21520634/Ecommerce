@@ -36,7 +36,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
             @change="updateUrl"
             type="select"
             name="sort"
-            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
+            class="w-full focus:border-blue-600 focus:ring-blue-600 border-gray-300 rounded">
             <option value="price">Price (ASC)</option>
             <option value="-price">Price (DESC)</option>
             <option value="title">Title (ASC)</option>
@@ -66,7 +66,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
                         'price' => $product->price,
                         'addToCartUrl' => route('cart.add', $product)
                     ]) }})"
-                    class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
+                    class="border border-1 border-gray-200 rounded-md hover:border-blue-600 transition-colors bg-white"
                 >
                     <a href="{{ route('product.view', $product->slug) }}"
                        class="aspect-w-3 aspect-h-2 block overflow-hidden">
@@ -77,12 +77,14 @@ $categoryList = \App\Models\Category::getActiveAsTree();
                         />
                     </a>
                     <div class="p-4">
-                        <h3 class="text-lg">
+                        <h3 class="text-xl whitespace-nowrap overflow-hidden text-ellipsis">
                             <a href="{{ route('product.view', $product->slug) }}">
                                 {{$product->title}}
                             </a>
                         </h3>
-                        <h5 class="font-bold">${{$product->price}}</h5>
+                    </div>
+                    <div class="px-4 py-2">
+                        <h5 class="font-bold text-xl">${{$product->price}}</h5>
                     </div>
                     <div class="flex justify-between py-3 px-4">
                         <button class="btn-primary" @click="addToCart()">

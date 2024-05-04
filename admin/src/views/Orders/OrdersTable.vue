@@ -4,7 +4,7 @@
       <div class="flex items-center">
         <span class="whitespace-nowrap mr-3">Per Page</span>
         <select @change="getOrders(null)" v-model="perPage"
-                class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm">
+                class="appearance-none relative block w-24 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm">
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
@@ -15,7 +15,7 @@
       </div>
       <div>
         <input v-model="search" @change="getOrders(null)"
-               class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+               class="appearance-none relative block w-48 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                placeholder="Type to Search orders">
       </div>
     </div>
@@ -73,8 +73,8 @@
         </td>
         <td class="border-b p-2 ">
           <router-link :to="{name: 'app.orders.view', params: {id: order.id}}"
-                       class="w-8 h-8 rounded-full text-indigo-700 border border-indigo-700 flex justify-center items-center
-                        hover:text-white hover:bg-indigo-700">
+                       class="w-8 h-8 rounded-full text-blue-700 border border-blue-700 flex justify-center items-center
+                        hover:text-white hover:bg-blue-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                  stroke="currentColor" class="w-4 h-4">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -96,7 +96,7 @@
         class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px"
         aria-label="Pagination"
       >
-        <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
+        <!-- Current: "z-10 bg-blue-50 border-blue-500 text-blue-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
         <a
           v-for="(link, i) of orders.links"
           :key="i"
@@ -107,7 +107,7 @@
           class="relative inline-flex items-center px-4 py-2 border text-sm font-medium whitespace-nowrap"
           :class="[
               link.active
-                ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
+                ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
                 : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
               i === 0 ? 'rounded-l-md' : '',
               i === orders.links.length - 1 ? 'rounded-r-md' : '',
