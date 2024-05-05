@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="toast.show"
-    class="fixed w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
+    class="fixed w-[400px] right-4 top-16 py-2 px-4 pb-4 rounded shadow-lg bg-white text-black"
   >
     <div class="font-semibold">{{ toast.message }}</div>
     <button
@@ -26,7 +26,7 @@
     <!-- Progress -->
     <div>
       <div
-        class="absolute left-0 bottom-0 right-0 h-[6px] bg-black/10"
+        class="absolute rounded left-0 bottom-0 right-0 h-[6px] bg-black/10"
         :style="{'width': `${percent}%`}"
       ></div>
     </div>

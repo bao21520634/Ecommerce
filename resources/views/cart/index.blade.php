@@ -11,6 +11,7 @@
                         'image' => $product->image ?: '/img/noimage.png',
                         'title' => $product->title,
                         'price' => $product->price,
+                        'priceFormat' => number_format($product->price),
                         'quantity' => $cartItems[$product->id]['quantity'],
                         'href' => route('product.view', $product->slug),
                         'removeUrl' => route('cart.remove', $product),
@@ -19,7 +20,7 @@
                 )
             }},
             get cartTotal() {
-                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
+                return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toLocaleString()
             },
         }" class="bg-white p-4 rounded-lg shadow">
             <!-- Product Items -->
@@ -38,7 +39,7 @@
                                     <div class="flex justify-between mb-3">
                                         <h3 x-text="product.title"></h3>
                                         <span class="text-lg font-semibold">
-                                            $<span x-text="product.price"></span>
+                                            <span x-text="product.priceFormat"></span>đ
                                         </span>
                                     </div>
                                     <div class="flex justify-between items-center">
@@ -73,7 +74,7 @@
                     <div class="border-t border-gray-300 pt-4">
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal</span>
-                            <span id="cartTotal" class="text-xl" x-text="`$${cartTotal}`"></span>
+                            <strong id="cartTotal" class="text-xl" x-text="`${cartTotal}đ`"></strong>
                         </div>
                         <p class="text-gray-500 mb-6">
                             Shipping and taxes calculated at checkout.

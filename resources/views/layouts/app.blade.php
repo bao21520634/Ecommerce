@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel E-commerce Website') }}</title>
+    <title>{{ config('app.name', 'Ecommerce') }}</title>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -16,8 +16,17 @@
     </style>
 </head>
 <body>
-@include('layouts.navigation')
 
+<?php
+/** @var \Illuminate\Database\Eloquent\Collection $products */
+$categoryList = \App\Models\Category::getActiveAsTree();
+
+?>
+
+<div class="shadow">
+    @include('layouts.navigation')
+    <x-category-list :category-list="$categoryList" class="px-4"/>
+</div>
 <main class="p-5">
     {{ $slot }}
 </main>
@@ -29,8 +38,9 @@
     x-transition
     x-cloak
     @notify.window="show($event.detail.message, $event.detail.type || 'success')"
-    class="fixed w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 text-white"
-    :class="type === 'success' ? 'bg-emerald-500' : 'bg-red-500'"
+    style="right: 16px"
+    class="fixed w-[400px] rounded-md top-16 py-2 px-4 pb-4 text-black shadow-md"
+    :class="type === 'success' ? 'bg-white' : 'bg-red-500 text-white'"
 >
     <div class="font-semibold" x-text="message"></div>
     <button
@@ -55,7 +65,7 @@
     <!-- Progress -->
     <div>
         <div
-            class="absolute left-0 bottom-0 right-0 h-[6px] bg-black/10"
+            class="absolute left-0 bottom-0 right-0 h-[6px] rounded-md bg-black/10"
             :style="{'width': `${percent}%`}"
         ></div>
     </div>

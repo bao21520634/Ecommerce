@@ -57,12 +57,12 @@ class CheckoutController extends Controller
             $totalPrice += $product->price * $quantity;
             $lineItems[] = [
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'vnd',
                     'product_data' => [
                         'name' => $product->title,
                         'images' => $product->image ? [$product->image] : []
                     ],
-                    'unit_amount' => $product->price * 100,
+                    'unit_amount' => $product->price,
                 ],
                 'quantity' => $quantity,
             ];
@@ -177,12 +177,11 @@ class CheckoutController extends Controller
         foreach ($order->items as $item) {
             $lineItems[] = [
                 'price_data' => [
-                    'currency' => 'usd',
+                    'currency' => 'vnd',
                     'product_data' => [
                         'name' => $item->product->title,
-//                        'images' => [$product->image]
                     ],
-                    'unit_amount' => $item->unit_price * 100,
+                    'unit_amount' => $item->unit_price,
                 ],
                 'quantity' => $item->quantity,
             ];

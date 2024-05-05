@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('login') }}" class="w-[400px] mx-auto p-6 my-16">
+    <form method="POST" action="{{ route('login') }}" class="w-[400px] mx-auto p-6 my-8 bg-white rounded-lg">
         <h2 class="text-2xl font-semibold text-center mb-5">
             Login to your account
         </h2>
@@ -33,7 +33,7 @@
             @endif
         </div>
         <button
-            class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 w-full"
+            class="btn-primary bg-blue-500 hover:bg-blue-600 active:bg-blue-700 w-full"
         >
             Login
         </button>

@@ -2,7 +2,7 @@
     <form
         action="{{ route('register') }}"
         method="post"
-        class="w-[400px] mx-auto p-6 my-16"
+        class="w-[400px] mx-auto p-6 my-8 bg-white rounded-lg"
     >
         @csrf
 
@@ -40,7 +40,7 @@
         </div>
 
         <button
-            class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 w-full"
+            class="btn-primary bg-blue-500 hover:bg-blue-600 active:bg-blue-700 w-full"
         >
             Signup
         </button>

@@ -1,10 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
-  <div class="flex items-center justify-between mb-3">
-    <h1 v-if="!loading" class="text-3xl font-semibold">
-      {{ product.id ? `Update product: "${product.title}"` : 'Create new Product' }}
-    </h1>
-  </div>
+  
   <div class="bg-white rounded-lg shadow animate-fade-in-down">
     <Spinner v-if="loading"
              class="absolute left-0 top-0 bg-white right-0 bottom-0 flex items-center justify-center z-50"/>
@@ -13,7 +9,7 @@
         <div class="col-span-2 px-4 pt-5 pb-4">
           <CustomInput class="mb-2" v-model="product.title" label="Product Title" :errors="errors['title']"/>
           <CustomInput type="richtext" class="mb-2" v-model="product.description" label="Description" :errors="errors['description']"/>
-          <CustomInput type="number" class="mb-2" v-model="product.price" label="Price" prepend="$" :errors="errors['price']"/>
+          <CustomInput type="number" class="mb-2" v-model="product.price" label="Price" prepend="VND" :errors="errors['price']"/>
           <CustomInput type="number" class="mb-2" v-model="product.quantity" label="Quantity" :errors="errors['quantity']"/>
           <CustomInput type="checkbox" class="mb-2" v-model="product.published" label="Published" :errors="errors['published']"/>
           <treeselect v-model="product.categories" :multiple="true" :options="options" :errors="errors['categories']"/>
@@ -65,7 +61,7 @@ const router = useRouter()
 
 const product = ref({
   id: null,
-  title: null,
+  title: "",
   images: [],
   deleted_images: [],
   image_positions: {},

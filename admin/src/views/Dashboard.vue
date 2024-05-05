@@ -61,7 +61,7 @@
           </p>
           <p class="flex justify-between">
             <span>{{ o.first_name }} {{ o.last_name }}</span>
-            <span>{{ $filters.currencyUSD(o.total_price) }}</span>
+            <span>{{ $filters.currencyVND(o.total_price) }}</span>
           </p>
         </div>
       </template>
@@ -82,7 +82,7 @@
           <div class="w-12 h-12 bg-gray-200 flex items-center justify-center rounded-full mr-2">
             <UserIcon class="w-5"/>
           </div>
-          <div>
+          <div class="truncate">
             <h3>{{ c.first_name }} {{ c.last_name }}</h3>
             <p>{{ c.email }}</p>
           </div>

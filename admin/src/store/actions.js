@@ -100,13 +100,11 @@ export function updateProduct({commit}, product) {
     const form = new FormData();
     form.append('id', product.id);
     form.append('title', product.title);
-    product.images.forEach(im => form.append(`images[${im.id}]`, im))
+    product.images.forEach(im => form.append(`images[]`, im))
     if (product.deleted_images) {
       product.deleted_images.forEach(id => form.append('deleted_images[]', id))
     }
-    for (let id in product.image_positions) {
-      form.append(`image_positions[${id}]`, product.image_positions[id])
-    }
+
     form.append('description', product.description || '');
     form.append('published', product.published ? 1 : 0);
     form.append('price', product.price);
@@ -148,6 +146,10 @@ export function createUser({commit}, user) {
 
 export function updateUser({commit}, user) {
   return axiosClient.put(`/users/${user.id}`, user)
+}
+
+export function deleteUser({commit}, user) {
+  return axiosClient.delete(`/users/${user.id}`)
 }
 
 export function getCustomers({commit, state}, {url = null, search = '', per_page, sort_field, sort_direction} = {}) {
