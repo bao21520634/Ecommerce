@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,13 +12,14 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email'=> ['required', 'email'],
+        $request->validate([
+            'email' => ['required', 'email'],
             'password' => 'required',
-            'remember' => 'boolean'
+            'remember_me' => 'boolean'
         ]);
-        $remember = $credentials['remember'] ?? false;
-        unset($credentials['remember']);
+        $credentials = request(['email', 'password']);
+        $remember = $credentials['remember_me'] ?? false;
+        unset($credentials['remember_me']);
         if (!Auth::attempt($credentials, $remember)) {
             return response([
                 'message' => 'Email or password is incorrect'
@@ -25,7 +27,7 @@ class AuthController extends Controller
         }
 
         /** @var \App\Models\User $user */
-        $user = Auth::user();
+        $user = $request->user();
         if (!$user->is_admin) {
             Auth::logout();
             return response([
@@ -38,19 +40,24 @@ class AuthController extends Controller
                 'message' => 'Your email address is not verified'
             ], 403);
         }
-        $token = $user->createToken('main')->plainTextToken;
+        
+        $tokenResult = $user->createToken('main');
+        $token = $tokenResult->token;
+        $token->save();
         return response([
             'user' => new UserResource($user),
-            'token' => $token
+            'token' => $tokenResult->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse(
+                $tokenResult->token->expires_at
+            )->toDateTimeString()
         ]);
-
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         /** @var \App\Models\User $user */
-        $user = Auth::user();
-        $user->currentAccessToken()->delete();
+        $request->user()->token()->revoke();
 
         return response('', 204);
     }

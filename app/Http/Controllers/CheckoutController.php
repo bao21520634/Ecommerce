@@ -77,9 +77,7 @@ class CheckoutController extends Controller
                 $product->save();
             }
         }
-//        dd(route('checkout.failure', [], true));
-
-//        dd(route('checkout.success', [], true) . '?session_id={CHECKOUT_SESSION_ID}');
+        
 
         $session = \Stripe\Checkout\Session::create([
             'line_items' => $lineItems,
