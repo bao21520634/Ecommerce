@@ -154,7 +154,7 @@ class CheckoutController extends Controller
             }
             $customer = \Stripe\Customer::retrieve($session->customer);
 
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME)->withoutCookie("cart_items");
         } catch (NotFoundHttpException $e) {
             throw $e;
         } catch (\Exception $e) {
