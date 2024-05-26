@@ -10,16 +10,31 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use(config => {
-  config.headers.Authorization = `Bearer ${store.state.user.token}`
+  config.headers.Authorization = `Bearer ${store.state.user.access_token}`
   return config;
 })
 
 axiosClient.interceptors.response.use(response => {
   return response;
-}, error => {
+}, async (error) => {
   if (error.response.status === 401) {
-    store.commit('setToken', null)
-    router.push({name: 'login'})
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) {
+      store.commit('setToken', null)
+      store.commit('setRefreshToken', null)
+      router.push({ name: 'login' })
+      return
+    }
+
+    try {
+      const { data } = await axiosClient.post('/refresh', { refresh_token: refreshToken })
+      if (data) {
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('refresh_token', data.refresh_token);
+      }
+    } catch (error) {
+      router.push({ name: 'login' })
+    }
   }
   throw error;
 })

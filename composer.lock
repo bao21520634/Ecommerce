@@ -1973,7 +1973,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "description": "A simple library to work with JSON Web access_token and JSON Web Signature",
             "keywords": [
                 "JWS",
                 "jwt"

@@ -124,7 +124,7 @@ const routes = [
     }
   },
   {
-    path: '/reset-password/:token',
+    path: '/reset-password/:access_token',
     name: 'resetPassword',
     component: ResetPassword,
     meta: {
@@ -144,9 +144,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.state.user.token) {
+  if (to.meta.requiresAuth && !store.state.user.access_token) {
     next({name: 'login'})
-  } else if (to.meta.requiresGuest && store.state.user.token) {
+  } else if (to.meta.requiresGuest && store.state.user.access_token) {
     next({name: 'app.dashboard'})
   } else {
     next();

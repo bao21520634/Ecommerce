@@ -3,12 +3,21 @@ export function setUser(state, user) {
   state.user.data = user;
 }
 
-export function setToken(state, token) {
-  state.user.token = token;
-  if (token) {
-    localStorage.setItem('TOKEN', token);
+export function setToken(state, access_token) {
+  state.user.access_token = access_token;
+  if (access_token) {
+    localStorage.setItem('access_token', access_token);
   } else {
-    localStorage.removeItem('TOKEN')
+    localStorage.removeItem('access_token')
+  }
+}
+
+export function setRefreshToken(state, refresh_token) {
+  state.user.refresh_token = refresh_token;
+  if (refresh_token) {
+    localStorage.setItem('refresh_token', refresh_token);
+  } else {
+    localStorage.removeItem('refresh_token')
   }
 }
 

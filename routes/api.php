@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DashboardController;
@@ -21,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:api', 'admin'])->group(function () {
-    Route::get('/user', [\App\Http\Controllers\Api\AuthController::class, 'getUser']);
-    Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'getUser']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::apiResource('products', ProductController::class);
     Route::apiResource('users', UserController::class);
@@ -49,4 +50,7 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::get('/report/customers', [ReportController::class, 'customers']);
 });
 
-Route::post('/login', [\App\Http\Controllers\Api\AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+
+/* ------------------------ For Password Grant Token ------------------------ */
+Route::post('refresh', [AuthController::class, 'refreshToken']);
